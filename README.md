@@ -1,8 +1,8 @@
 # ¡A jugar! 
 
-## Juego realizado con la biblioteca Wollok Game
+## El laberinto de Homero
 
-![reemplazar por una animación del juego](https://d33wubrfki0l68.cloudfront.net/1ba3cf64b23a4ac786d7432121abbd782794730c/ce83b/documentacion/conceptos/images/wollokcharacter.gif)
+<img src="https://www.kindpng.com/picc/m/256-2562494_pink-simpsons-donuts-freetoedit-homer-simpson-hd-png.png">
 
 ### Resumen:
 
@@ -12,13 +12,13 @@
 
 ### Acerca de:
 
-Autores:
+Autores: Estrada Facundo
 
-Docente/Curso/Institución:
+Docente/Curso/Institución: Lucas Spigariol
 
-Versión de wollok:
+Versión de wollok: 1.9.2
 
-Fecha:
+Fecha: 02/09/2020
 
 [Guía de herramientas](https://www.wollok.org/documentacion/conceptos/)
 
