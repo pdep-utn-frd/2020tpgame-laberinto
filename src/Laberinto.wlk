@@ -2,12 +2,13 @@ import wollok.game.*
 
 import visuales.*
 
-object prueba{
+object laberintoHomero{
 	method iniciar(){
-		game.addVisual(muro)
 		game.addVisual(casa)
 		game.addVisual(rosquilla)
 		game.addVisualCharacter(homero)
+		muros.cargarMuros()
+		game.whenCollideDo(homero, {elemento => elemento.colisionar(homero)})
 		game.start()
 	}
 }
