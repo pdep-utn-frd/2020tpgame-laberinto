@@ -1,9 +1,10 @@
 import wollok.game.*
 import Laberinto.*
+import visuales.*
 
-program ejemplos{
+program game{
 	game.title("El laberinto de Homero")
 	game.width(25)
 	game.height(18)
-	prueba.iniciar()
+	laberintoHomero.iniciar()
 }
