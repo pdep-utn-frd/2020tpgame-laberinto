@@ -4,10 +4,15 @@ import Laberinto.*
 class Muro{
 	var property position
 	
+	
 	method image() = "Muro.png"
 	
 	method esAtravesable(){
 		return false
+	}
+	
+	method colisionar(homero){
+		game.say(self, "Ouch!")
 	}
 }
 
@@ -22,7 +27,6 @@ object muros{
 		(0 .. ancho).forEach{ n => posParedes.add(new Position(x=n, y=largo)) } // bordeArriba 
 		(0 .. largo).forEach{ n => posParedes.add(new Position(x=0, y=n)) } // bordeIzq 
 		(0 .. largo).forEach{ n => posParedes.add(new Position(x=ancho, y=n)) } // bordeDer
-		
 		
 		[1,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23].forEach{n => posParedes.add(new Position(x=n, y=16))}
 		[1,3,5,6,7,8,9,10,11,12,13,14,15,16].forEach{n => posParedes.add(new Position(x=n, y=15))}
@@ -41,11 +45,6 @@ object muros{
 		[2,3,5,6,7,8,9,10,12,22].forEach{n => posParedes.add(new Position(x=n, y=2))}
 		[12,13,14,15,16,17,18,19,20].forEach{n => posParedes.add(new Position(x=n, y=1))}
 		
-		 
-		
-		
-		
-	
 		posParedes.forEach { p => self.dibujar(new Muro(position = p)) }	
 	
 	}	
@@ -54,7 +53,9 @@ object muros{
 		return dibujo
 	}
 	
-	//method colisionar(homero){}
+	method colisionar(homero){
+		game.say(self, "Ouch!")
+	}
 	
 	method esAtravesable(){
 		return false
@@ -70,6 +71,7 @@ object rosquilla{
 		game.say(homero, "ñam ñam")
 		game.removeVisual(self)
 	}
+	
 	method esAtravesable(){
 		return true
 	}
@@ -79,50 +81,41 @@ object casa{
 	var property position = game.at(12,8)
 	
 	method image() = "Casa.png"
+	
+	method colisionar(homero){
+		game.say(homero, "Ganamos!")
+	}
+	
+	method esAtravesable(){
+		return true
+	}
 }
 
 object homero{
 	
-	var orientacion = derecha
-	var position = self.position()
-	var image = "Homero.png"
+	var property position = game.at(1,1)
+	var property image = "Homero.png"
 	
-	
-	method image() = image
-	
-	method position() = game.at(1,1)
-	
-	method arriba(){
-		position = self.position().up(1)
-		return position
-	}		
-	method abajo(){
-		position = self.position().down(1)
-	}		
-	method izquierda(){
-		position = self.position().left(1)
-	}
-	method derecha(){
-		position = self.position().right(1)
-	}
-	
-	
+	//Verifica los objetos en esa posicion y se fija si es atravesable o n0
 	 method puedeMoverAl(unaOrientacion){
 		return game.getObjectsIn(unaOrientacion.posicionEnEsaDireccion()).all{unObj => unObj.esAtravesable()}
 	}
 	
+	//Metodo para evaluar el movimiento del personaje, intenta moverse en una posicion y orientacion,
+	//si no puede (hay algun objeto no atravesable) no se mueve
 	method mover(posicion, unaOrientacion){
-		orientacion = unaOrientacion
-		image = orientacion.imagenDelJugador()
+		image = unaOrientacion.imagenDelJugador()
+		
 		if (self.puedeMoverAl(unaOrientacion)){
 			unaOrientacion.posicionEnEsaDireccion()
 		}
 		else{
-			game.say(self, "Ouch!")
+			//self.position()
 		}
 	}
 	
-	method configurarFlechas(unaOrientacion){
+	//Metodo para mover el personaje
+	method configurarFlechas(){
 		keyboard.up().onPressDo{ self.mover(arriba.posicionEnEsaDireccion(),arriba)}
 		keyboard.down().onPressDo{ self.mover(abajo.posicionEnEsaDireccion(),abajo)}
 		keyboard.left().onPressDo{ self.mover(izquierda.posicionEnEsaDireccion(),izquierda)}
@@ -130,11 +123,9 @@ object homero{
    }
 }
 
-
-
 object arriba{
 	method imagenDelJugador() = homero.image()
-	method posicionEnEsaDireccion() = homero.arriba()
+	method posicionEnEsaDireccion() = homero.position().up(1)
 }
 
 object abajo{
