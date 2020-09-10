@@ -5,6 +5,10 @@ class Muro{
 	var property position
 	
 	method image() = "Muro.png"
+	
+	method esAtravesable(){
+		return false
+	}
 }
 
 object muros{
@@ -12,9 +16,8 @@ object muros{
 	method cargarMuros(){
 		const ancho = game.width() - 1
 		const largo = game.height() - 1
-		const posAncho = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]
 	
-		var posParedes = []
+		const posParedes = []
 		(0 .. ancho).forEach{ n => posParedes.add(new Position(x=n, y=0)) } // bordeAbajo
 		(0 .. ancho).forEach{ n => posParedes.add(new Position(x=n, y=largo)) } // bordeArriba 
 		(0 .. largo).forEach{ n => posParedes.add(new Position(x=0, y=n)) } // bordeIzq 
@@ -51,7 +54,7 @@ object muros{
 		return dibujo
 	}
 	
-	method colisionar(homero){}
+	//method colisionar(homero){}
 	
 	method esAtravesable(){
 		return false
@@ -65,7 +68,10 @@ object rosquilla{
 	
 	method colisionar(homero){
 		game.say(homero, "ñam ñam")
-		game.removeVisual(rosquilla)
+		game.removeVisual(self)
+	}
+	method esAtravesable(){
+		return true
 	}
 }
 
@@ -77,73 +83,71 @@ object casa{
 
 object homero{
 	
-	//var orientacion = derecha
-	var property position = game.at(1,1)
+	var orientacion = derecha
+	var position = self.position()
+	var image = "Homero.png"
 	
-	method image() = "Homero.png"
+	
+	method image() = image
+	
+	method position() = game.at(1,1)
 	
 	method arriba(){
-		position = position.up(1)
-	}
+		position = self.position().up(1)
+		return position
+	}		
 	method abajo(){
-		position = position.down(1)
-	}
+		position = self.position().down(1)
+	}		
 	method izquierda(){
-		position = position.left(1)
+		position = self.position().left(1)
 	}
 	method derecha(){
-		position = position.right(1)
+		position = self.position().right(1)
 	}
 	
-	/* method puedeMoverAl(unaOrientacion){
+	
+	 method puedeMoverAl(unaOrientacion){
 		return game.getObjectsIn(unaOrientacion.posicionEnEsaDireccion()).all{unObj => unObj.esAtravesable()}
 	}
 	
 	method mover(posicion, unaOrientacion){
 		orientacion = unaOrientacion
-		self.actualizarImagen()
+		image = orientacion.imagenDelJugador()
 		if (self.puedeMoverAl(unaOrientacion)){
-			
+			unaOrientacion.posicionEnEsaDireccion()
 		}
 		else{
-			
+			game.say(self, "Ouch!")
 		}
 	}
 	
-	method configurarFlechas(visual){
-		keyboard.up().onPressDo{ self.mover(arriba,visual)}
-		keyboard.down().onPressDo{ self.mover(abajo,visual)}
-		keyboard.left().onPressDo{ self.mover(izquierda,visual)}
-		keyboard.right().onPressDo{ self.mover(derecha,visual)}
+	method configurarFlechas(unaOrientacion){
+		keyboard.up().onPressDo{ self.mover(arriba.posicionEnEsaDireccion(),arriba)}
+		keyboard.down().onPressDo{ self.mover(abajo.posicionEnEsaDireccion(),abajo)}
+		keyboard.left().onPressDo{ self.mover(izquierda.posicionEnEsaDireccion(),izquierda)}
+		keyboard.right().onPressDo{ self.mover(derecha.posicionEnEsaDireccion(),derecha)}
    }
-   
-   method actualizarImagen(){
-   		imagen = orientacion.imagenDelJugador()
-   		game.addVisual(self)
-   } 
-*/
 }
 
-/*
+
 
 object arriba{
-	method imagenDelJugador() = "Homero.png"
-	method posicionEnEsaDirecion() = homero.position().up(1)
+	method imagenDelJugador() = homero.image()
+	method posicionEnEsaDireccion() = homero.arriba()
 }
 
 object abajo{
-	method imagenDelJugador() = "Homero.png"
-	method posicionEnEsaDirecion() = homero.position().down(1)
+	method imagenDelJugador() = homero.image()
+	method posicionEnEsaDireccion() = homero.position().down(1)
 }
 
 object izquierda{
 	method imagenDelJugador() = "Homero.png"
-	method posicionEnEsaDirecion() = homero.position().left(1)
+	method posicionEnEsaDireccion() = homero.position().left(1)
 }
 
 object derecha{
 	method imagenDelJugador() = "HomeroR.png"
-	method posicionEnEsaDirecion() = homero.position().right(1)
+	method posicionEnEsaDireccion() = homero.position().right(1)
 }
-*/
-
