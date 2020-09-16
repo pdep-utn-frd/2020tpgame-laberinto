@@ -2,21 +2,16 @@ import wollok.game.*
 import Laberinto.*
 
 class Muro{
-	var property position
+	var property position	
+	var property image = "Muro.png"	
+	var property esAtravesable = false
 	
-	
-	method image() = "Muro.png"
-	
-	method esAtravesable(){
-		return false
-	}
-	
-	method colisionar(homero){
+	method colisionar(){
 		game.say(self, "Ouch!")
 	}
 }
 
-object muros{
+object muros inherits Muro{
 	
 	method cargarMuros(){
 		const ancho = game.width() - 1
@@ -50,95 +45,86 @@ object muros{
 	}	
 	method dibujar(dibujo) {
 		game.addVisual(dibujo)
-		return dibujo
-	}
-	
-	method colisionar(homero){
-		game.say(self, "Ouch!")
-	}
-	
-	method esAtravesable(){
-		return false
 	}
 }
 
 object rosquilla{
 	var property position = game.at(20,4)
-	
-	method image() = "Rosquilla.png"
-	
-	method colisionar(homero){
+	var property esAtravesable = true
+	var property image = "Rosquilla.png"
+		
+	method colisionar(){
 		game.say(homero, "ñam ñam")
 		game.removeVisual(self)
-	}
-	
-	method esAtravesable(){
-		return true
 	}
 }
 
 object casa{
-	var property position = game.at(12,8)
+	var property position = game.at(12,8)	
+	var property image = "Casa.png"
+	var property esAtravesable = true
 	
-	method image() = "Casa.png"
-	
-	method colisionar(homero){
+	method colisionar(){
 		game.say(homero, "Ganamos!")
-	}
-	
-	method esAtravesable(){
-		return true
 	}
 }
 
-object homero{
-	
-	var property position = game.at(1,1)
+object homero{	
+	var posicionHomero = game.at(1,1)
 	var property image = "Homero.png"
 	
+	method position() = posicionHomero
+	
+	method mover(posicion, unaOrientacion){
+		image = unaOrientacion.imagenDelJugador()
+		
+		if (movimiento.puedeMoverAl(unaOrientacion)){
+			posicionHomero = unaOrientacion.posicionEnEsaDireccion()
+		}
+		else{
+			self.position()
+			game.say(self, "Ouch!")
+		}
+	}
+}
+
+object movimiento{
 	//Verifica los objetos en esa posicion y se fija si es atravesable o n0
 	 method puedeMoverAl(unaOrientacion){
 		return game.getObjectsIn(unaOrientacion.posicionEnEsaDireccion()).all{unObj => unObj.esAtravesable()}
 	}
 	
-	//Metodo para evaluar el movimiento del personaje, intenta moverse en una posicion y orientacion,
-	//si no puede (hay algun objeto no atravesable) no se mueve
-	method mover(posicion, unaOrientacion){
-		image = unaOrientacion.imagenDelJugador()
-		
-		if (self.puedeMoverAl(unaOrientacion)){
-			unaOrientacion.posicionEnEsaDireccion()
-		}
-		else{
-			//self.position()
-		}
-	}
-	
-	//Metodo para mover el personaje
 	method configurarFlechas(){
-		keyboard.up().onPressDo{ self.mover(arriba.posicionEnEsaDireccion(),arriba)}
-		keyboard.down().onPressDo{ self.mover(abajo.posicionEnEsaDireccion(),abajo)}
-		keyboard.left().onPressDo{ self.mover(izquierda.posicionEnEsaDireccion(),izquierda)}
-		keyboard.right().onPressDo{ self.mover(derecha.posicionEnEsaDireccion(),derecha)}
+		keyboard.up().onPressDo{ homero.mover(arriba.posicionEnEsaDireccion(),arriba)}
+		keyboard.down().onPressDo{ homero.mover(abajo.posicionEnEsaDireccion(),abajo)}
+		keyboard.left().onPressDo{ homero.mover(izquierda.posicionEnEsaDireccion(),izquierda)}
+		keyboard.right().onPressDo{ homero.mover(derecha.posicionEnEsaDireccion(),derecha)}
    }
 }
+
 
 object arriba{
 	method imagenDelJugador() = homero.image()
 	method posicionEnEsaDireccion() = homero.position().up(1)
+	method opuesto() = abajo
 }
 
 object abajo{
 	method imagenDelJugador() = homero.image()
 	method posicionEnEsaDireccion() = homero.position().down(1)
+	method opuesto() = arriba
 }
 
 object izquierda{
 	method imagenDelJugador() = "Homero.png"
 	method posicionEnEsaDireccion() = homero.position().left(1)
+	method opuesto() = derecha
+	
 }
 
 object derecha{
 	method imagenDelJugador() = "HomeroR.png"
 	method posicionEnEsaDireccion() = homero.position().right(1)
+	method opuesto() = izquierda
+	
 }

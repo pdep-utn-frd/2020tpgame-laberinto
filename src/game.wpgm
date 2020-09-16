@@ -1,6 +1,5 @@
 import wollok.game.*
 import Laberinto.*
-import visuales.*
 
 program game{
 	game.title("El laberinto de Homero")
