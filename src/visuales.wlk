@@ -41,11 +41,21 @@ object muros inherits Muro{
 		[12,13,14,15,16,17,18,19,20].forEach{n => posParedes.add(new Position(x=n, y=1))}
 		
 		posParedes.forEach { p => self.dibujar(new Muro(position = p)) }	
-	
 	}	
+	
 	method dibujar(dibujo) {
 		game.addVisual(dibujo)
 	}
+}
+
+object introJuego{
+	var property position = game.origin()
+	var property image = "IntroJuego.png"
+}
+
+object homeroWin{
+	var property position = game.origin()
+	var property image = "HomeroWin2.jpg"
 }
 
 object rosquilla{
@@ -66,23 +76,24 @@ object casa{
 	
 	method colisionar(){
 		game.say(homero, "Ganamos!")
+		nivel.ganar()
 	}
 }
 
 object homero{	
-	var posicionHomero = game.at(1,1)
+	var property position = game.at(1,1)
 	var property image = "Homero.png"
 	
-	method position() = posicionHomero
+	
+	method position(nuevaPosicion){
+		position = nuevaPosicion
+	}
 	
 	method mover(posicion, unaOrientacion){
 		image = unaOrientacion.imagenDelJugador()
 		
-		if (movimiento.puedeMoverAl(unaOrientacion)){
-			posicionHomero = unaOrientacion.posicionEnEsaDireccion()
-		}
-		else{
-			self.position()
+		if (not(movimiento.puedeMoverAl(unaOrientacion))){
+			self.position(unaOrientacion.opuesto().posicionEnEsaDireccion())
 			game.say(self, "Ouch!")
 		}
 	}
@@ -102,7 +113,6 @@ object movimiento{
    }
 }
 
-
 object arriba{
 	method imagenDelJugador() = homero.image()
 	method posicionEnEsaDireccion() = homero.position().up(1)
@@ -118,13 +128,11 @@ object abajo{
 object izquierda{
 	method imagenDelJugador() = "Homero.png"
 	method posicionEnEsaDireccion() = homero.position().left(1)
-	method opuesto() = derecha
-	
+	method opuesto() = derecha	
 }
 
 object derecha{
 	method imagenDelJugador() = "HomeroR.png"
 	method posicionEnEsaDireccion() = homero.position().right(1)
 	method opuesto() = izquierda
-	
 }

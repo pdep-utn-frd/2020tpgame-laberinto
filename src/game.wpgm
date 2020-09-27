@@ -2,8 +2,6 @@ import wollok.game.*
 import Laberinto.*
 
 program game{
-	game.title("El laberinto de Homero")
-	game.width(25)
-	game.height(18)
-	laberintoHomero.iniciar()
+	nivel.inicio()
+	game.start()
 }
