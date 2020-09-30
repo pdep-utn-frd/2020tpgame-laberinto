@@ -5,10 +5,6 @@ class Muro{
 	var property position	
 	var property image = "Muro.png"	
 	var property esAtravesable = false
-	
-	method colisionar(){
-		game.say(self, "Ouch!")
-	}
 }
 
 object muros inherits Muro{
@@ -46,11 +42,15 @@ object muros inherits Muro{
 	method dibujar(dibujo) {
 		game.addVisual(dibujo)
 	}
+	
+	method colisionar(){
+		game.say(self, "Ouch!")
+	}
 }
 
 object introJuego{
-	var property position = game.origin()
-	var property image = "IntroJuego.png"
+	var property position = game.at(0,0)
+	var property image = "IntroJuego.jpg"
 }
 
 object homeroWin{
@@ -58,6 +58,10 @@ object homeroWin{
 	var property image = "HomeroWin2.jpg"
 }
 
+object finalWin{
+	var property position = game.at(11.5,0)
+	var property image = "FinalWin.png"
+}
 object rosquilla{
 	var property position = game.at(20,4)
 	var property esAtravesable = true
@@ -89,7 +93,7 @@ object homero{
 		position = nuevaPosicion
 	}
 	
-	method mover(posicion, unaOrientacion){
+	method mover(unaOrientacion){
 		image = unaOrientacion.imagenDelJugador()
 		
 		if (not(movimiento.puedeMoverAl(unaOrientacion))){
@@ -100,16 +104,16 @@ object homero{
 }
 
 object movimiento{
-	//Verifica los objetos en esa posicion y se fija si es atravesable o n0
+
 	 method puedeMoverAl(unaOrientacion){
 		return game.getObjectsIn(unaOrientacion.posicionEnEsaDireccion()).all{unObj => unObj.esAtravesable()}
 	}
 	
 	method configurarFlechas(){
-		keyboard.up().onPressDo{ homero.mover(arriba.posicionEnEsaDireccion(),arriba)}
-		keyboard.down().onPressDo{ homero.mover(abajo.posicionEnEsaDireccion(),abajo)}
-		keyboard.left().onPressDo{ homero.mover(izquierda.posicionEnEsaDireccion(),izquierda)}
-		keyboard.right().onPressDo{ homero.mover(derecha.posicionEnEsaDireccion(),derecha)}
+		keyboard.up().onPressDo{homero.mover(arriba)}
+		keyboard.down().onPressDo{homero.mover(abajo)}
+		keyboard.left().onPressDo{homero.mover(izquierda)}
+		keyboard.right().onPressDo{homero.mover(derecha)}
    }
 }
 
