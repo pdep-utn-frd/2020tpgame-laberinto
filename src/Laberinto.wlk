@@ -7,6 +7,7 @@ object nivel{
 	
 	method inicio(){
 		game.clear()
+		homero.position(game.at(1,3))
 		game.title("El laberinto de Homero")
 		game.width(25)
 		game.height(18)
@@ -20,7 +21,9 @@ object nivel{
 		muros.cargarMuros()
 		game.addVisual(casa)
 		game.addVisual(rosquilla)
+		game.addVisual(rosquillaTrampa)
 		game.addVisualCharacter(homero)
+		keyboard.r().onPressDo{self.inicio()}
 		game.whenCollideDo(homero, {elemento => elemento.colisionar()})
 	}
 	

@@ -7,7 +7,7 @@ class Muro{
 	var property esAtravesable = false
 }
 
-object muros inherits Muro{
+object muros{
 	
 	method cargarMuros(){
 		const ancho = game.width() - 1
@@ -19,22 +19,22 @@ object muros inherits Muro{
 		(0 .. largo).forEach{ n => posParedes.add(new Position(x=0, y=n)) } // bordeIzq 
 		(0 .. largo).forEach{ n => posParedes.add(new Position(x=ancho, y=n)) } // bordeDer
 		
-		[1,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23].forEach{n => posParedes.add(new Position(x=n, y=16))}
-		[1,3,5,6,7,8,9,10,11,12,13,14,15,16].forEach{n => posParedes.add(new Position(x=n, y=15))}
-		[1,3,18,19,20,21,22,23].forEach{n => posParedes.add(new Position(x=n, y=14))}
-		[1,3,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21].forEach{n => posParedes.add(new Position(x=n, y=13))}
-		[1,3,7,8,9,10,11,12,13,14,15,16,21,23].forEach{n => posParedes.add(new Position(x=n, y=12))}
-		[1,3,4,5,15,16,18,19,21,23].forEach{n => posParedes.add(new Position(x=n, y=11))}
-		[3,4,5,7,8,9,10,11,12,13,15,16,18,19,21,23].forEach{n => posParedes.add(new Position(x=n, y=10))}
-		[1,2,3,4,5,8,9,10,11,12,13,15,16,18,19].forEach{n => posParedes.add(new Position(x=n, y=9))}
-		[5,8,13,15,16,18,19,21,22,23].forEach{n => posParedes.add(new Position(x=n, y=8))}
-		[2,3,5,8,10,11,12,13,16,18,19,21,22].forEach{n => posParedes.add(new Position(x=n, y=7))}
-		[2,3,5,8,10,11,12,13,14,16,18,19].forEach{n => posParedes.add(new Position(x=n, y=6))}
-		[2,3,8,14,16,18,19,20,21,22].forEach{n => posParedes.add(new Position(x=n, y=5))}
-		[2,3,4,5,6,8,9,10,11,12,14,18,19,21,22].forEach{n => posParedes.add(new Position(x=n, y=4))}
-		[2,3,8,12,14,15,16,17,18,19,21,22].forEach{n => posParedes.add(new Position(x=n, y=3))}
-		[2,3,5,6,7,8,9,10,12,22].forEach{n => posParedes.add(new Position(x=n, y=2))}
-		[12,13,14,15,16,17,18,19,20].forEach{n => posParedes.add(new Position(x=n, y=1))}
+		[4,13,19].forEach{n => posParedes.add(new Position(x=n, y=16))}
+		[2,3,4,6,7,8,10,11,13,14,15,16,17,19,20,21].forEach{n => posParedes.add(new Position(x=n, y=15))}
+		[6,10,17,19,21,22].forEach{n => posParedes.add(new Position(x=n, y=14))}
+		[1,2,3,4,5,6,8,9,10,11,12,13,14,16,17,19,21].forEach{n => posParedes.add(new Position(x=n, y=13))}
+		[4,8,14,17,19,23].forEach{n => posParedes.add(new Position(x=n, y=12))}
+		[2,4,6,7,8,10,11,12,23].forEach{n => posParedes.add(new Position(x=n, y=11))}
+		[2,6,10,14,15,16,17,18,19,21,22,23].forEach{n => posParedes.add(new Position(x=n, y=10))}
+		[2,3,4,5,6,8,10,12,13,14,17,19,21].forEach{n => posParedes.add(new Position(x=n, y=9))}
+		[2,6,7,8,10,13,17,21,23].forEach{n => posParedes.add(new Position(x=n, y=8))}
+		[2,4,10,12,13,15,16,17,19,20,21].forEach{n => posParedes.add(new Position(x=n, y=7))}
+		[1,2,4,5,6,7,8,9,10,12,17,19,21,22].forEach{n => posParedes.add(new Position(x=n, y=6))}
+		[4,6,9,14,15,16,17,19,21].forEach{n => posParedes.add(new Position(x=n, y=5))}
+		[1,2,4,6,8,9,11,12,14,19,21,23].forEach{n => posParedes.add(new Position(x=n, y=4))}
+		[2,4,9,12,13,14,16,17,18,19,21].forEach{n => posParedes.add(new Position(x=n, y=3))}
+		[2,4,7,12,14,18,21].forEach{n => posParedes.add(new Position(x=n, y=2))}
+		[6,7,8,10,12,16].forEach{n => posParedes.add(new Position(x=n, y=1))}
 		
 		posParedes.forEach { p => self.dibujar(new Muro(position = p)) }	
 	}	
@@ -44,7 +44,6 @@ object muros inherits Muro{
 	}
 	
 	method colisionar(){
-		game.say(self, "Ouch!")
 	}
 }
 
@@ -63,15 +62,86 @@ object finalWin{
 	var property image = "FinalWin.png"
 }
 object rosquilla{
-	var property position = game.at(20,4)
+	var property position = game.at(23,9)
 	var property esAtravesable = true
 	var property image = "Rosquilla.png"
 		
 	method colisionar(){
-		game.say(homero, "ñam ñam")
+		game.say(homero, "Bart me cambio la verdadera rosquilla!")
+		game.say(homero, "Bart me cambio la verdadera rosquilla!")
+		game.say(homero, "Bart me cambio la verdadera rosquilla!")
 		game.removeVisual(self)
+		game.addVisual(rosquilla2)
+		game.addVisual(rosquilla3)
+	}	
+}
+object rosquillaTrampa{
+	var property position  = game.at(20,1)
+	var property esAtravesable = true
+	var property image = "Rosquilla.png"
+		
+	method colisionar(){
+		game.removeVisual(self)
+		game.addVisual(barney)		
+		game.say(barney, "Homero, vamos a lo de moe")
+		game.say(barney, "Homero, vamos a lo de moe")
+		game.say(barney, "Homero, vamos a lo de moe")
+		game.say(homero, "No puedo ahora Barney!")
+		game.say(homero, "No puedo ahora Barney!")
+		game.say(homero, "No puedo ahora Barney!")
 	}
 }
+object rosquilla2{
+	var property position = game.at(3,16)
+	var property esAtravesable = true
+	var property image = "Rosquilla.png"
+		
+	method colisionar(){
+		game.say(homero, "ñam ñam, esta es la verdadera")
+		game.say(homero, "ñam ñam, esta es la verdadera")
+		game.removeVisual(self)
+		homero.tieneRosquilla(true)
+	}	
+}
+object rosquilla3{
+	var property position = game.at(7,9)
+	var property esAtravesable = true
+	var property image = "Rosquilla.png"
+		
+	method colisionar(){
+		game.removeVisual(self)
+		game.addVisual(burns)
+		game.say(burns, "Asi que yendote antes del trabajo!")
+		game.say(burns, "Asi que yendote antes del trabajo!")	
+		game.say(burns, "Asi que yendote antes del trabajo!")	
+		game.say(burns, "Asi que yendote antes del trabajo!")	
+		game.say(burns, "Asi que yendote antes del trabajo!")	
+		game.say(burns, "Asi que yendote antes del trabajo!")		
+		game.say(barney, "Homero, presiona la r y no caigas de nuevo")
+		game.say(barney, "Homero, presiona la r y no caigas de nuevo")	
+		game.say(barney, "Homero, presiona la r y no caigas de nuevo")
+		game.say(barney, "Homero, presiona la r y no caigas de nuevo")
+		game.say(barney, "Homero, presiona la r y no caigas de nuevo")
+		game.say(barney, "Homero, presiona la r y no caigas de nuevo")
+	}	
+}
+object barney{
+	var property position = game.at(20,1)
+	var property image = "Barney.png"
+	var property esAtravesable = true
+	
+	method colisionar(){
+	}
+}
+object burns{
+	var property position = game.at(8,10)
+	var property image = "Burns.png"
+	var property esAtravesable = false
+	
+	method colisionar(){
+	}
+}
+
 
 object casa{
 	var property position = game.at(12,8)	
@@ -79,14 +149,19 @@ object casa{
 	var property esAtravesable = true
 	
 	method colisionar(){
-		game.say(homero, "Ganamos!")
-		nivel.ganar()
+		if (homero.tieneRosquilla()){
+			game.say(homero, "Ganamos!")
+			nivel.ganar()
+		}else{
+			game.say(homero, "Espera, todavia no tengo la rosquilla")
+		}
 	}
 }
 
 object homero{	
-	var property position = game.at(1,1)
-	var property image = "Homero.png"
+	var property position = game.at(1,3)
+	var property image = "HomeroR.png"
+	var property tieneRosquilla = false
 	
 	
 	method position(nuevaPosicion){
@@ -98,7 +173,7 @@ object homero{
 		
 		if (not(movimiento.puedeMoverAl(unaOrientacion))){
 			self.position(unaOrientacion.opuesto().posicionEnEsaDireccion())
-			game.say(self, "Ouch!")
+			//game.say(self, "Ouch!")
 		}
 	}
 }
@@ -140,3 +215,4 @@ object derecha{
 	method posicionEnEsaDireccion() = homero.position().right(1)
 	method opuesto() = izquierda
 }
+
