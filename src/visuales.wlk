@@ -67,9 +67,19 @@ object rosquilla{
 	var property image = "Rosquilla.png"
 		
 	method colisionar(){
+		game.say(homero, "Rosquilla sin azucar!")
+		game.say(homero, "Rosquilla sin azucar!")
 		game.say(homero, "Bart me cambio la verdadera rosquilla!")
 		game.say(homero, "Bart me cambio la verdadera rosquilla!")
-		game.say(homero, "Bart me cambio la verdadera rosquilla!")
+		game.say(homero, "Debo encontrar la verdadera")
+		game.say(homero, "Debo encontrar la verdadera")
+		game.addVisual(bart)
+		game.say(bart, "Yo no fui")
+		game.say(bart, "Yo no fui")
+		game.say(bart, "Yo no fui")	
+		game.say(bart, "Yo no fui")
+		game.say(bart, "Jajaja suerte con eso viejo")
+		game.say(bart, "Jajaja suerte con eso viejo")			
 		game.removeVisual(self)
 		game.addVisual(rosquilla2)
 		game.addVisual(rosquilla3)
@@ -85,8 +95,6 @@ object rosquillaTrampa{
 		game.addVisual(barney)		
 		game.say(barney, "Homero, vamos a lo de moe")
 		game.say(barney, "Homero, vamos a lo de moe")
-		game.say(barney, "Homero, vamos a lo de moe")
-		game.say(homero, "No puedo ahora Barney!")
 		game.say(homero, "No puedo ahora Barney!")
 		game.say(homero, "No puedo ahora Barney!")
 	}
@@ -136,6 +144,14 @@ object barney{
 object burns{
 	var property position = game.at(8,10)
 	var property image = "Burns.png"
+	var property esAtravesable = false
+	
+	method colisionar(){
+	}
+}
+object bart{
+	var property position = game.at(23,13)
+	var property image = "Bart.png"
 	var property esAtravesable = false
 	
 	method colisionar(){
